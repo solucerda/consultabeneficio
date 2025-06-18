@@ -20,7 +20,7 @@ export default async function handler(
 
   const { cpf, location } = req.body as Body;
 
-  // Validação básica
+  // Validação básica dos dados
   if (
     !cpf ||
     typeof cpf !== "string" ||
@@ -40,6 +40,9 @@ export default async function handler(
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ cpf, location }),
     });
+
+    const text = await response.text();
+    console.log("Resposta do Apps Script:", text);
 
     if (!response.ok) {
       throw new Error(`Erro na comunicação com Google Script: ${response.statusText}`);
