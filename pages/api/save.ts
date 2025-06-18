@@ -20,6 +20,7 @@ export default async function handler(
 
   const { cpf, location } = req.body as Body;
 
+  // Validação básica dos dados
   if (
     !cpf ||
     typeof cpf !== "string" ||
@@ -31,20 +32,24 @@ export default async function handler(
   }
 
   try {
-    const scriptURL = "https://script.google.com/macros/s/AKfycbwGiVNif86JhzqxnD_BFFXAF3ljzqmGNOwcbYCnQDBXCEx1hLNKU_Xeygn_ku4JXPPXTg/exec";
-
-    const response = await fetch(scriptURL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ cpf, location }),
-    });
+    const response = await fetch(
+      "https://script.google.com/macros/s/AKfycbxMdHagE1h_VvngNOadWUzBjxi4M-6LeyFwUX15wTCpPyOhMykUEgEl_bTapv27O8C00A/exec",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ cpf, location }),
+      }
+    );
 
     const text = await response.text();
-    console.log("Resposta do Apps Script:", text);
 
     if (!response.ok) {
       throw new Error(`Erro na comunicação com Google Script: ${response.statusText}`);
     }
+
+    console.log("Resposta do Apps Script:", text);
 
     return res.status(200).json({ message: "Dados enviados com sucesso" });
   } catch (error: unknown) {
